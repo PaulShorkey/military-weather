@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import HomePage from './HomePage';
+import NavBar from './NavBar';
+import callAPI from './API.js'
+import { useState, useEffect} from 'react';
+
 
 function App() {
+  const [oneAPIData, setOneAPIData] = useState({});
+  useEffect(() => {
+    callAPI(setOneAPIData);
+    console.log(oneAPIData);
+  }, setOneAPIData)
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <header>
+          <NavBar/>
+        </header>
+        <body>
+          <HomePage/>
+        </body>
+        <footer>
+          Brought to you by the family breakout room
+        </footer>
+        
     </div>
   );
 }
