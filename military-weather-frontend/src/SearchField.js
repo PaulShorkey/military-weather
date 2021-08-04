@@ -17,18 +17,20 @@ const baseChoices = [
   'Drum',
   'Pearl Harbor-Hickam'];
 
+const baseCoords = {
+  'Bragg': {_lat: 35.14, _long: -79.00},
+  'Charleston': {_lat: 0, _long: 0},
+  'Drum': {_lat: 0, _long: 0},
+  'Pearl Harbor-Hickam': {_lat: 21.33, _long: -157.97}
+}
+
 const uniformChoices = [
   'Air Force OCP',
   'Army OCP', 
   'Air Force PT', 
   'Army PT'];
 
-const timeChoices = [
-  'Morning',
-  'Afternoon',
-  'Evening',
-  'Night'
-];
+
 
 
 
@@ -158,106 +160,56 @@ function SearchField(){
     
 }
 
+const timeChoices = [
+  '0000',
+  '0030',
+  '0100',
+  '0130',
+  '0200',
+  '0230',
+  '0300',
+  '0330',
+  '0400',
+  '0430',
+  '0500',
+  '0530',
+  '0600',
+  '0630',
+  '0700',
+  '0730',
+  '0800',
+  '0830',
+  '0900',
+  '0930',
+  '1000',
+  '1030',
+  '1100',
+  '1130',
+  '1200',
+  '1230',
+  '1300',
+  '1330',
+  '1400',
+  '1430',
+  '1500',
+  '1530',
+  '1600',
+  '1630',
+  '1700',
+  '1730',
+  '1800',
+  '1830',
+  '1900',
+  '1930',
+  '2000',
+  '2030',
+  '2100',
+  '2130',
+  '2200',
+  '2230',
+  '2300',
+  '2330'
+];
+
 
 export default SearchField;
-
-/*
-return(
-        <div className="home-page">
-            
-        </div>
-
-
-
-import React, {useState} from 'react';
-import TabsExample from './TabsExample';
-
-import {
-    Paper,
-    Card,
-    CardActions,
-    CardHeader,
-    CardMedia,
-    CardContent,
-    CardActionArea,
-    MenuItem,
-    Menu,
-    Button,
-    Tabs, 
-    Tab,
-    Slider
-  } from '@material-ui/core';
-
-
-
-const styles = {
-  customWidth: {
-    width: 200,
-  },
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
-
-const NewPaper = () => {
-  const [value, setValue] = useState(1)
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleChange = (event, index, value) => {
-    setValue(value);
-  }
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-
-  const menuArea = () => {
-    return (
-      <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Open Menu
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>
-    )
-  }
-
-  return (
-    <div>      
-        <Paper variant="outlined" elevation={0} style={style}>
-          {menuArea()}
-          <TabsExample />
-            <Card style={style}>
-              <CardHeader title="Card Title">Card Title</CardHeader>
-              <CardContent>Other Content</CardContent>
-            </Card>
-        </Paper>
-        <Paper elevation={12} style={style}>This is a Material UI Paper component
-        
-        </Paper>
-        <Paper variant="outlined" square elevation={24} style={style}>
-            This is a Material UI Paper component
-        </Paper>
-    </div>
-  )
-};
-
-export default NewPaper;*/
