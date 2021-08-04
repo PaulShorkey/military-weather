@@ -1,105 +1,112 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 import {
-    Paper,
-    InputLabel,
-    MenuItem,
-    FormHelperText,
-    FormControl,
-    Select,
-    Grid
-  } from '@material-ui/core';
+  Paper,
+  InputLabel,
+  MenuItem,
+  FormHelperText,
+  FormControl,
+  Select,
+  Grid
+} from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+import SearchObject from './APIcall/SearchObject';
 
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
-  const styles = {
-    customWidth: {
-      width: 200,
-    },
-    headline: {
-      fontSize: 24,
-      paddingTop: 16,
-      marginBottom: 12,
-      fontWeight: 400,
-    },
+const styles = {
+  customWidth: {
+    width: 200,
+  },
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
+
+function HomePage({ searchObject, setSearchObject }) {
+  const [uniform, setUniform] = useState('Select Uniform')
+  const [base, setBase] = useState('Select Base')
+  const [time, setTime] = useState('Select Time')
+  //const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const classes = useStyles();
+
+  const handleUniformChange = (event) => {
+    setUniform(event.target.value);
   };
 
-function HomePage(){
-    const [uniform, setUniform] = useState('Select Uniform')
-    const [base, setBase] = useState('Select Base')
-    const [time, setTime] = useState('Select Time')
-    //const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleBaseChange = (event) => {
+    setBase(event.target.value);
+    const { lat, lon } = JSON.parse(event.target.value);
+    let nextSearchObj = new SearchObject;
+    nextSearchObj.lat = lat;
+    nextSearchObj.lon = lon;
+    nextSearchObj.units = searchObject.units;
+    setSearchObject(nextSearchObj);
+  };
 
-    const classes = useStyles();
-    
-    const handleUniformChange = (event) => {
-        setUniform(event.target.value);
-      };
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  };
 
-    const handleBaseChange = (event) => {
-        setBase(event.target.value);
-      };
+  return (
+    <Paper variant="outlined" elevation={0} style={styles}>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="select">Select Uniform</InputLabel>
+        <Select
+          labelId="select-uniform"
+          id="select"
+          value={uniform}
+          onChange={handleUniformChange}
+        >
+          <MenuItem value="OCP" >OCP</MenuItem>
+          <MenuItem value="PT" >PT</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="select">Select Base</InputLabel>
+        <Select
+          labelId="select-time"
+          id="select"
+          value={base}
+          onChange={handleBaseChange}
+        >
+          <MenuItem value='{"lat": 50, "lon": 150}'>Bragg</MenuItem>
+          <MenuItem value='{"lat": 60, "lon": 120}'>Charleston</MenuItem>
 
-    const handleTimeChange = (event) => {
-        setTime(event.target.value);
-      };
+        </Select>
+      </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="select">Select Time</InputLabel>
+        <Select
+          labelId="select-time"
+          id="select"
+          value={time}
+          onChange={handleTimeChange}
+        >
+          <MenuItem value="0430">0430</MenuItem>
+          <MenuItem value="0530">0530</MenuItem>
+          <MenuItem value="0630">0630</MenuItem>
+          <MenuItem value="0730">0730</MenuItem>
+        </Select>
+      </FormControl>
+    </Paper>
+  )
 
-    return (    
-        <Paper variant="outlined" elevation={0} style={styles}>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="select">Select Uniform</InputLabel>
-                <Select 
-                    labelId="select-uniform" 
-                    id="select" 
-                    value={uniform}
-                    onChange={handleUniformChange}
-                >
-                    <MenuItem value="OCP" >OCP</MenuItem>
-                    <MenuItem value="PT" >PT</MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="select">Select Base</InputLabel>
-                <Select 
-                    labelId="select-time" 
-                    id="select" 
-                    value={base}
-                    onChange={handleBaseChange}
-                >
-                    <MenuItem value="Bragg">Bragg</MenuItem>
-                    <MenuItem value="Charleston">Charleston</MenuItem>
-                    
-                </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="select">Select Time</InputLabel>
-                <Select 
-                    labelId="select-time" 
-                    id="select" 
-                    value={time}
-                    onChange={handleTimeChange}
-                >
-                    <MenuItem value="0430">0430</MenuItem>
-                    <MenuItem value="0530">0530</MenuItem>
-                    <MenuItem value="0630">0630</MenuItem>
-                    <MenuItem value="0730">0730</MenuItem>
-                </Select>
-            </FormControl>
-        </Paper>
-      )
-    
-    
+
 }
 
 
@@ -108,7 +115,7 @@ export default HomePage;
 /*
 return(
         <div className="home-page">
-            
+
         </div>
 
 
@@ -127,7 +134,7 @@ import {
     MenuItem,
     Menu,
     Button,
-    Tabs, 
+    Tabs,
     Tab,
     Slider
   } from '@material-ui/core';
@@ -185,7 +192,7 @@ const NewPaper = () => {
   }
 
   return (
-    <div>      
+    <div>
         <Paper variant="outlined" elevation={0} style={style}>
           {menuArea()}
           <TabsExample />
@@ -195,7 +202,7 @@ const NewPaper = () => {
             </Card>
         </Paper>
         <Paper elevation={12} style={style}>This is a Material UI Paper component
-        
+
         </Paper>
         <Paper variant="outlined" square elevation={24} style={style}>
             This is a Material UI Paper component
