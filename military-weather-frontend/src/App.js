@@ -1,7 +1,9 @@
 import './App.css';
-import HomePage from './HomePage';
+import SearchField from './SearchField';
 import NavBar from './NavBar';
-import oneCallAPI from './APIcall/oneCallAPI.js'
+import ResultsView from './ResultsView';
+import StickyFooter from './Footer';
+import oneCallAPI from './APIcall/oneCallAPI.js';
 import { useState, useEffect } from 'react';
 
 
@@ -21,10 +23,11 @@ function App({ initialSearchData }) {
         <NavBar />
       </header>
       <body>
-        <HomePage />
+        <SearchField />
+        <ResultsView />
       </body>
       <footer>
-        Brought to you by the family breakout room
+        <StickyFooter />
       </footer>
 
     </div>

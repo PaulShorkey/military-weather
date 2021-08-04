@@ -1,5 +1,4 @@
 import React, { useState} from 'react';
-
 import {
     Paper,
     InputLabel,
@@ -9,14 +8,37 @@ import {
     Select,
     Grid
   } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
+import DateTimePicker from './DateTimePicker.js';
+
+const baseChoices = [
+  'Bragg',
+  'Charleston',
+  'Drum',
+  'Pearl Harbor-Hickam'];
+
+const uniformChoices = [
+  'Air Force OCP',
+  'Army OCP', 
+  'Air Force PT', 
+  'Army PT'];
+
+const timeChoices = [
+  'Morning',
+  'Afternoon',
+  'Evening',
+  'Night'
+];
+
 
 
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
+      marginBottom: 25,
+      marginTop: 25
+      
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -35,11 +57,11 @@ import { makeStyles } from '@material-ui/core/styles';
     },
   };
 
-function HomePage(){
+function SearchField(){
     const [uniform, setUniform] = useState('Select Uniform')
     const [base, setBase] = useState('Select Base')
     const [time, setTime] = useState('Select Time')
-    //const [anchorEl, setAnchorEl] = React.useState(null);
+    const [date, setDate] = useState('Select Date')
 
     const classes = useStyles();
     
@@ -55,8 +77,12 @@ function HomePage(){
         setTime(event.target.value);
       };
 
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+      };
+
     return (    
-        <Paper variant="outlined" elevation={0} style={styles}>
+        <Paper variant="outlined" elevation={0} style={styles}><center>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="select">Select Uniform</InputLabel>
                 <Select 
@@ -65,8 +91,15 @@ function HomePage(){
                     value={uniform}
                     onChange={handleUniformChange}
                 >
-                    <MenuItem value="OCP" >OCP</MenuItem>
-                    <MenuItem value="PT" >PT</MenuItem>
+                  {
+                    uniformChoices.map((uniform) => {
+                      {
+                        return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
+                      }
+                    })   
+                  }
+                    
+                    
                 </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -77,8 +110,13 @@ function HomePage(){
                     value={base}
                     onChange={handleBaseChange}
                 >
-                    <MenuItem value="Bragg">Bragg</MenuItem>
-                    <MenuItem value="Charleston">Charleston</MenuItem>
+                  {
+                    baseChoices.map((base) => {
+                      {
+                        return (<MenuItem value={`${base}`} >{base}</MenuItem>)
+                      }
+                    }) 
+                  }
                     
                 </Select>
             </FormControl>
@@ -90,20 +128,38 @@ function HomePage(){
                     value={time}
                     onChange={handleTimeChange}
                 >
-                    <MenuItem value="0430">0430</MenuItem>
-                    <MenuItem value="0530">0530</MenuItem>
-                    <MenuItem value="0630">0630</MenuItem>
-                    <MenuItem value="0730">0730</MenuItem>
+                  {
+                    timeChoices.map((time) => {
+                      {
+                        return (<MenuItem value={`${time}`} >{time}</MenuItem>)
+                      }
+                    }) 
+                  }
+                    
                 </Select>
             </FormControl>
-        </Paper>
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="select">Select Day</InputLabel>
+                <Select 
+                    labelId="select-time" 
+                    id="select" 
+                    value={date}
+                    onChange={handleDateChange}
+                >
+                  <MenuItem value='Today' >Today</MenuItem>
+                  <MenuItem value='Tomorrow' >Tomorrow</MenuItem>
+                  
+                    
+                </Select>
+            </FormControl>
+        </center></Paper>
       )
     
     
 }
 
 
-export default HomePage;
+export default SearchField;
 
 /*
 return(

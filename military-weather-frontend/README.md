@@ -12,6 +12,9 @@ WORKING WITH THE API
 https://openweathermap.org/api/one-call-api
 The One Call API provides the following weather data for any geographical coordinates:
 
+Footer pulled from here:
+https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/sticky-footer/StickyFooter.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
