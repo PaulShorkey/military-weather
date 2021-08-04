@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import SearchObject from './APIcall/SearchObject.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App initialSearchData={new SearchObject} />
   </React.StrictMode>,
   document.getElementById('root')
 );

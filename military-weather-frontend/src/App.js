@@ -1,31 +1,31 @@
 import './App.css';
 import HomePage from './HomePage';
 import NavBar from './NavBar';
-import callAPI from './API.js'
-import { useState, useEffect} from 'react';
+import oneCallAPI from './APIcall/oneCallAPI.js'
+import { useState, useEffect } from 'react';
 
 
-function App() {
-  const [oneAPIData, setOneAPIData] = useState({});
+function App({ initialSearchData }) {
+  const [searchObject, setSearchObject] = useState(initialSearchData);
+  const [oneCallAPIData, setOneCallAPIData] = useState({});
   useEffect(() => {
-    callAPI(setOneAPIData);
-    console.log(oneAPIData);
-  }, setOneAPIData)
+    oneCallAPI(searchObject, setOneCallAPIData);
+  }, [searchObject, setOneCallAPIData])
 
 
-
+  console.log(oneCallAPIData)
   return (
     <div className="App">
-        <header>
-          <NavBar/>
-        </header>
-        <body>
-          <HomePage/>
-        </body>
-        <footer>
-          Brought to you by the family breakout room
-        </footer>
-        
+      <header>
+        <NavBar />
+      </header>
+      <body>
+        <HomePage />
+      </body>
+      <footer>
+        Brought to you by the family breakout room
+      </footer>
+
     </div>
   );
 }
