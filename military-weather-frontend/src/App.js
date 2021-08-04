@@ -12,8 +12,9 @@ function App({ initialSearchData }) {
     oneCallAPI(searchObject, setOneCallAPIData);
   }, [searchObject, setOneCallAPIData])
 
-
   console.log(oneCallAPIData)
+
+  //pages rendered based on the current state (home)
   return (
     <div className="App">
       <header>
