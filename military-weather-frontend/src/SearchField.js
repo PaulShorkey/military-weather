@@ -30,10 +30,6 @@ const uniformChoices = [
   'Air Force PT', 
   'Army PT'];
 
-
-
-
-
   const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),

@@ -30,15 +30,23 @@ function ResultsView(){
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <Card variant="outlined" style={style}>
         What should I wear?
+        <br/>
+        Clothes not recommended.
       </Card>
       <Card variant="outlined" style={style}>
-        Heat Index? Flag Condition?
+        Heat Index? <br/>
+        Flag Condition? <br/>
+        Death Valley, America
       </Card>
       <Card variant="outlined" style={style}>
         Bad weather?
+        <br/>
+        Horrendus
       </Card>
       <Card variant="outlined" style={style}>
         Air Quality?
+        <br/>
+        Literally Beijing
       </Card>
       </center></Paper>
     )
