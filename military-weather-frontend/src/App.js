@@ -1,7 +1,9 @@
 import './App.css';
-import HomePage from './HomePage';
+import SearchField from './SearchField';
 import NavBar from './NavBar';
-import oneCallAPI from './APIcall/oneCallAPI.js'
+import ResultsView from './ResultsView';
+import StickyFooter from './Footer';
+import oneCallAPI from './APIcall/oneCallAPI.js';
 import { useState, useEffect } from 'react';
 
 
@@ -12,8 +14,6 @@ function App({ initialSearchData }) {
     oneCallAPI(searchObject, setOneCallAPIData);
   }, [searchObject, setOneCallAPIData])
 
-  console.log(oneCallAPIData)
-
   //pages rendered based on the current state (home)
   return (
     <div className="App">
@@ -21,10 +21,11 @@ function App({ initialSearchData }) {
         <NavBar />
       </header>
       <body>
-        <HomePage searchObject={searchObject} setSearchObject={setSearchObject} />
+        <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
+        <ResultsView />
       </body>
       <footer>
-        Brought to you by the family breakout room
+        <StickyFooter />
       </footer>
 
     </div>
