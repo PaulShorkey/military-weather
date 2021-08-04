@@ -2,7 +2,7 @@ function oneCallAPI(searchObject, setOneCallAPIData) {
 
   //searchObject = {lat: , long: , units: }
   let lat = searchObject.lat
-  let lon = searchObject.long
+  let lon = searchObject.lon
   //let exclustions
   let APIkey = 'ca53804ef39c60edb29c150ec2515574'
   //exclude - exclude parts of the call, time wise.

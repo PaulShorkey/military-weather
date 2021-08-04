@@ -21,7 +21,7 @@ function App({ initialSearchData }) {
         <NavBar />
       </header>
       <body>
-        <HomePage />
+        <HomePage searchObject={searchObject} setSearchObject={setSearchObject} />
       </body>
       <footer>
         Brought to you by the family breakout room
