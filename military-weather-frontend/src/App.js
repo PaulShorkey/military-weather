@@ -13,7 +13,7 @@ function App() {
   }, setOneAPIData)
 
 
-
+  //pages rendered based on the current state (home)
   return (
     <div className="App">
         <header>
