@@ -1,7 +1,20 @@
 import {
-  Card, Paper
+  Paper,
+  Card,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Select, 
+  Button,
+  CardContent,
+  Typography
 } from '@material-ui/core';
 import React from 'react';
+
 
 const styles = {
     customWidth: {
@@ -18,13 +31,13 @@ const styles = {
 
   const style = {
     margin: 20,
-    backgroundColor: 'gray',
+    backgroundColor: 'green',
     color: 'white'
   };
 
   const style2 = {
     margin: 20,
-    backgroundColor: 'light-gray',
+    backgroundColor: 'gray',
     color: 'white'
   };
 
@@ -32,24 +45,41 @@ function ResultsView(){
     return(
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <Card variant="outlined" style={style}>
-        Uniform Requirements<br/>
-        {getUniformRequirements.map((article) => {
+      <CardContent>
+      <Typography variant="h5" component="h2">
+          Uniform Requirements
+        </Typography>
+        <br/>
+        <Typography variant="body2" component="p">
+         {getUniformRequirements.map((article) => {
           return <div>{`=> ${article} <=`}<br/></div>
         })}
-        
+        </Typography>
+        </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
+      <CardContent>
         Heat Index : {`${getHeatIndex()}`} <br/>
         Flag Condition : {`${getFlagCondition()}`} <br/>
+        </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
-        Weather Alerts<br/>
-        {getWeatherAlerts.map((alert) => {
+      <CardContent>
+      <Typography variant="h5" component="h2">
+          Weather Alerts
+        </Typography>
+        <br/>
+        <Typography variant="body2" component="p">
+         {getWeatherAlerts.map((alert) => {
           return <div>{`ALERT: ${alert}`}<br/></div>
         })}
+        </Typography>        
+        </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
+      <CardContent>
         Air Quality : {`${getAirQuality()}`}
+        </CardContent>
       </Card>
       </center></Paper>
     )

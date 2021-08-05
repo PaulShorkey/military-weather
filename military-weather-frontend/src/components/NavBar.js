@@ -35,10 +35,10 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar position="static" style={style}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" position="center">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} >
             Military Weather App
           </Typography>
           <Button color="inherit">Login</Button>

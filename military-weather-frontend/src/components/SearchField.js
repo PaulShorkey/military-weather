@@ -4,8 +4,11 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Switch,
   Select, 
-  Card,
   Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,6 +33,10 @@ const uniformChoices = [
   'Army OCP',
   'Air Force PT',
   'Army PT'];
+
+    
+
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -62,8 +69,15 @@ function SearchField({ searchObject, setSearchObject }) {
   const [base, setBase] = useState('Select Base')
   const [time, setTime] = useState('Select Time')
   const [date, setDate] = useState('Select Date')
+  const [FCToggle, setFCToggle] = React.useState({
+    FC: true
+  });
 
   const classes = useStyles();
+
+  const handleToggle = (event) => {
+    setFCToggle({ ...FCToggle, [event.target.name]: event.target.checked });
+  };
 
   const handleUniformChange = (event) => {
     setUniform(event.target.value);
@@ -104,7 +118,19 @@ function SearchField({ searchObject, setSearchObject }) {
           }
 
         </Select>
-      </FormControl><br/>
+      </FormControl>
+      
+      <FormControl component="fieldset">
+      <FormLabel component="legend">Fair In Height/Sell See Us</FormLabel>
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch checked={FCToggle.FC} onChange={handleToggle} name="FC" />}
+          label=""
+        />
+      </FormGroup>
+    </FormControl>
+      
+      <br/>
 
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select">Select Uniform</InputLabel>

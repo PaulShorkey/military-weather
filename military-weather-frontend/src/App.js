@@ -12,6 +12,7 @@ import ptUniformLogic from './ResultsViewLogic.js';
 function App({ initialSearchData }) {
   const [searchObject, setSearchObject] = useState(initialSearchData);
   const [oneCallAPIData, setOneCallAPIData] = useState({});
+  const [editBaseTemp, setBaseTemp] = useState(true);
   useEffect(() => {
     oneCallAPI(searchObject, setOneCallAPIData);
   }, [searchObject, setOneCallAPIData])
