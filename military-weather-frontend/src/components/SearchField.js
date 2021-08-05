@@ -70,14 +70,25 @@ function SearchField({ searchObject, setSearchObject }) {
   const [base, setBase] = useState('Select Base')
   const [time, setTime] = useState('Select Time')
   const [date, setDate] = useState('Select Date')
-  const [FCToggle, setFCToggle] = React.useState({
-    FC: true
-  });
+  const [isFahrenheit, setIsFahrenheit] = useState(true);
+
+  const submitClick = (event) => {
+    let nextSearchObj = new SearchObject();
+    nextSearchObj.lat = baseCoords[base].lat;
+    nextSearchObj.lon = baseCoords[base].lon;
+    nextSearchObj.timeZone = baseCoords[base].timeZone;
+    nextSearchObj.uniform = uniform;
+    nextSearchObj.base = baseCoords[base].base;
+    nextSearchObj.time = time;
+    nextSearchObj.date = date;
+    nextSearchObj.units = isFahrenheit ? 'imperial' : 'metric';
+    setSearchObject(nextSearchObj); 
+  };
 
   const classes = useStyles();
 
   const handleToggle = (event) => {
-    setFCToggle({ ...FCToggle, [event.target.name]: event.target.checked });
+    setIsFahrenheit(!isFahrenheit);
   };
 
   const handleUniformChange = (event) => {
@@ -85,13 +96,7 @@ function SearchField({ searchObject, setSearchObject }) {
   };
 
   const handleBaseChange = (event) => {
-    setBase(event.target.value);
-    const { lat, lon } = event.target.value;
-    let nextSearchObj = new SearchObject();
-    nextSearchObj.lat = lat;
-    nextSearchObj.lon = lon;
-    nextSearchObj.units = searchObject.units;
-    setSearchObject(nextSearchObj);
+    setBase(event.target.value);    
   };
 
   const handleTimeChange = (event) => {
@@ -114,7 +119,7 @@ function SearchField({ searchObject, setSearchObject }) {
         >
           {
             baseChoices.map((base) => {
-              return (<MenuItem value={baseCoords[base]} >{base}</MenuItem>)
+              return (<MenuItem value={base} >{base}</MenuItem>)
             })
           }
 
@@ -122,10 +127,10 @@ function SearchField({ searchObject, setSearchObject }) {
       </FormControl>
       
       <FormControl component="fieldset">
-      <FormLabel component="legend">Fair In Height/Sell See Us</FormLabel>
+      <FormLabel component="legend">Sell See Us/Fair In Height</FormLabel>
       <FormGroup>
         <FormControlLabel
-          control={<Switch checked={FCToggle.FC} onChange={handleToggle} name="FC" />}
+          control={<Switch checked={isFahrenheit} onChange={handleToggle} name="isFahrenheit" />}
           label=""
         />
       </FormGroup>
@@ -189,7 +194,7 @@ function SearchField({ searchObject, setSearchObject }) {
       </FormControl>
 
     <FormControl>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={submitClick}>
         Submit
       </Button>
     </FormControl>
