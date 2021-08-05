@@ -12,21 +12,25 @@ import sampleResponse from './sampleResponse.js';
 
 
 
-function App({ initialSearchData }) {
-  const [searchObject, setSearchObject] = useState(initialSearchData);
-  const [oneCallAPIData, setOneCallAPIData] = useState({});
-  const [airQualAPIData, setAirQualAPIData] = useState({});
+function App() {
+  const [searchObject, setSearchObject] = useState(null);
+  const [oneCallAPIData, setOneCallAPIData] = useState(null);
+  const [airQualAPIData, setAirQualAPIData] = useState(null);
   const [editBaseTemp, setBaseTemp] = useState(true);
   useEffect(() => {
-    oneCallAPI(searchObject, setOneCallAPIData);
-    airQualAPI(searchObject, setAirQualAPIData);
+    if (searchObject !== null) {
+      oneCallAPI(searchObject, setOneCallAPIData);
+      airQualAPI(searchObject, setAirQualAPIData);
+    }
   }, [searchObject])
-  console.log(airQualAPIData);
 
-  // function showResultsView(){
-  //   return (<ResultsView oneCallAPIData={sampleResponse()}/>)
-  // }
-  // let base = 'Select Base'
+  function showResultsView() {
+    if (oneCallAPIData && airQualAPIData) {
+      console.log(oneCallAPIData)
+      console.log(airQualAPIData)
+      return <ResultsView oneCallAPIData={oneCallAPIData} airQualAPIData={airQualAPIData} searchObject={searchObject} />
+    }
+  }
 
   //pages rendered based on the current state (home)
   return (
@@ -36,7 +40,7 @@ function App({ initialSearchData }) {
       </header>
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
-        <ResultsView oneCallAPIData={sampleResponse()} airQualAPIData={airQualAPIData} searchObject={searchObject} />
+        {showResultsView()}
 
       </body>
       <footer>

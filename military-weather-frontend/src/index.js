@@ -7,7 +7,7 @@ import SearchObject from './APIcall/SearchObject.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App initialSearchData={new SearchObject} />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
