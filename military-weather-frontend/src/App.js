@@ -30,7 +30,7 @@ function App({ initialSearchData }) {
       </header>
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
-        <ResultsView oneCallAPIData={sampleResponse()} searchObject={searchObject}/>
+        <ResultsView oneCallAPIData={sampleResponse()} airQualAPIData={airQualAPIData} searchObject={searchObject}/>
 
       </body>
       <footer>

@@ -35,7 +35,7 @@ const styles = {
     color: 'white'
   };
 
-function ResultsView({oneCallAPIData, searchObject}){
+function ResultsView({oneCallAPIData, airQualAPIData, searchObject}){
   
   return(
     <Paper variant="outlined" elevation={0} style={styles}><center>

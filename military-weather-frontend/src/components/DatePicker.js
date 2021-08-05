@@ -23,7 +23,7 @@ export default function DatePickers() {
     <form className={classes.container} noValidate>
       <TextField
         id="date"
-        label="Select Date"
+        label="select-date"
         type="date"
         defaultValue= {`${systemDay}`}
         className={classes.textField}
