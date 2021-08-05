@@ -22,6 +22,12 @@ function App({ initialSearchData }) {
     airQualAPI(searchObject, setAirQualAPIData);
   }, [searchObject])
   console.log(airQualAPIData);
+
+  // function showResultsView(){
+  //   return (<ResultsView oneCallAPIData={sampleResponse()}/>)
+  // }
+  // let base = 'Select Base'
+
   //pages rendered based on the current state (home)
   return (
     <div className="App">
@@ -30,7 +36,7 @@ function App({ initialSearchData }) {
       </header>
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
-        <ResultsView oneCallAPIData={sampleResponse()} airQualAPIData={airQualAPIData} searchObject={searchObject}/>
+        <ResultsView oneCallAPIData={sampleResponse()} airQualAPIData={airQualAPIData} searchObject={searchObject} />
 
       </body>
       <footer>
