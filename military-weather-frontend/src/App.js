@@ -19,6 +19,11 @@ function App({ initialSearchData }) {
 
   }, [searchObject, setOneCallAPIData])
 
+  // function showResultsView(){
+  //   return (<ResultsView oneCallAPIData={sampleResponse()}/>)
+  // }
+  // let base = 'Select Base'
+
   //pages rendered based on the current state (home)
   return (
     <div className="App">
@@ -28,6 +33,7 @@ function App({ initialSearchData }) {
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
         <ResultsView oneCallAPIData={sampleResponse()}/>
+        
 
       </body>
       <footer>

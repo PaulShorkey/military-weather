@@ -45,8 +45,7 @@ const styles = {
   };
 
 function ResultsView({oneCallAPIData}){
-  console.log(getUniformAtInputTime(oneCallAPIData.hourly, '0600', '', 'Bragg', 'Army PT'))  
-  
+  //console.log(getUniformAtInputTime(oneCallAPIData.hourly, '0600', '', 'Bragg', 'Army PT'))  
   return(
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <Card variant="outlined" style={style}>

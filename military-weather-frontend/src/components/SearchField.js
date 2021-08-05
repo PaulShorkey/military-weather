@@ -8,13 +8,14 @@ import {
   FormGroup,
   FormControlLabel,
   Switch,
-  Select, 
+  Select,
   Card,
   Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchObject from '../APIcall/SearchObject.js';
-import DatePickers from './DatePicker.js';
+import DatePicker from './DatePicker.js';
+import { GifSharp } from '@material-ui/icons';
 
 const baseChoices = [
   'Bragg',
@@ -23,10 +24,10 @@ const baseChoices = [
   'Pearl Harbor-Hickam'];
 
 const baseCoords = {
-  'Bragg': { "lat": 35.14, "lon": -79.00, "timeZone":"America/New_York" },
-  'Charleston': { "lat": 0, "lon": 0,"timeZone":"America/New_York"  },
-  'Drum': { "lat": 0, "lon": 0,"timeZone":"America/New_York"  },
-  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone":"Pacific/Honolulu" }
+  'Bragg': { "lat": 35.14, "lon": -79.00, "timeZone": "America/New_York" },
+  'Charleston': { "lat": 0, "lon": 0, "timeZone": "America/New_York" },
+  'Drum': { "lat": 0, "lon": 0, "timeZone": "America/New_York" },
+  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone": "Pacific/Honolulu" }
 }
 
 const uniformChoices = [
@@ -35,7 +36,7 @@ const uniformChoices = [
   'Air Force PT',
   'Army PT'];
 
-    
+
 
 
 
@@ -66,10 +67,12 @@ const styles = {
 
 
 function SearchField({ searchObject, setSearchObject }) {
+  const [flag, setFlag] = useState(false)
+
   const [uniform, setUniform] = useState('Select Uniform')
   const [base, setBase] = useState('Select Base')
   const [time, setTime] = useState('Select Time')
-  const [date, setDate] = useState('Select Date')
+  const [day, setDay] = useState('Today')
   const [FCToggle, setFCToggle] = React.useState({
     FC: true
   });
@@ -98,8 +101,75 @@ function SearchField({ searchObject, setSearchObject }) {
     setTime(event.target.value);
   };
 
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
+  const handleDayChange = (event) => {
+    setDay(event.target.value);
+  };
+
+  function showUniformTimeDate() {
+    return (
+      <div>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="select">Select Uniform</InputLabel>
+          <Select
+            labelId="select-uniform"
+            id="select"
+            value={uniform}
+            onChange={handleUniformChange}
+          >
+            {
+              uniformChoices.map((uniform) => {
+                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
+              })
+            }
+  
+  
+          </Select>
+        </FormControl>
+  
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="select">Select Time</InputLabel>
+          <Select
+            labelId="select-time"
+            id="select"
+            value={time}
+            onChange={handleTimeChange}
+          >
+            {
+              timeChoices.map((time) => {
+                return (<MenuItem value={`${time}`} >{time}</MenuItem>)
+              })
+            }
+  
+          </Select>
+        </FormControl>
+  
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="select">Select Day</InputLabel>
+          <Select
+            labelId="select-day"
+            id="select"
+            value={day}
+            onChange={handleDayChange}
+          >
+             <MenuItem value='Today'>Today</MenuItem>
+             <MenuItem value='Tomorrow'>Tomorrow</MenuItem>
+             
+          </Select>
+        </FormControl>
+        
+  
+      </div>
+    );
+  }// end of showUniformTimeDate()
+
+  function showSubmitButton(){
+    return(
+      <FormControl>
+          <Button variant="contained" color="primary" >
+            Submit
+          </Button>
+        </FormControl>
+    )
   };
 
   return (
@@ -107,7 +177,7 @@ function SearchField({ searchObject, setSearchObject }) {
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select">Select Base</InputLabel>
         <Select
-          labelId="select-time"
+          labelId="select-base"
           id="select"
           value={base}
           onChange={handleBaseChange}
@@ -120,87 +190,30 @@ function SearchField({ searchObject, setSearchObject }) {
 
         </Select>
       </FormControl>
-      
+
       <FormControl component="fieldset">
-      <FormLabel component="legend">Fair In Height/Sell See Us</FormLabel>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={FCToggle.FC} onChange={handleToggle} name="FC" />}
-          label=""
-        />
-      </FormGroup>
-    </FormControl>
-      
-      <br/>
-
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select">Select Uniform</InputLabel>
-        <Select
-          labelId="select-uniform"
-          id="select"
-          value={uniform}
-          onChange={handleUniformChange}
-        >
-          {
-            uniformChoices.map((uniform) => {
-                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
-            })
-          }
-
-
-        </Select>
+        <FormLabel component="legend">F° / C°</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={<Switch onChange={handleToggle} name="FC" />}
+            label=""
+          />
+        </FormGroup>
       </FormControl>
 
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select">Select Time</InputLabel>
-        <Select
-          labelId="select-time"
-          id="select"
-          value={time}
-          onChange={handleTimeChange}
-        >
-          {
-            timeChoices.map((time) => {
-              return (<MenuItem value={`${time}`} >{time}</MenuItem>)
-            })
-          }
+      {(base === 'Select Base') ? null : showUniformTimeDate()}
 
-        </Select>
-      </FormControl>
-
-      {/*<FormControl className={classes.formControl}>
-
-        <InputLabel htmlFor="select">Select Day</InputLabel>
-        <Select
-          labelId="select-time"
-          id="select"
-          value={date}
-          onChange={handleDateChange}
-        >
-          <MenuItem value='Today' >Today</MenuItem>
-          <MenuItem value='Tomorrow' >Tomorrow</MenuItem>
-
-        </Select>
-
-        </FormControl>*/}
-
-      <FormControl className={classes.formControl}>
-        <DatePickers />
-      </FormControl>
-
-    <FormControl>
-      <Button variant="contained" color="primary">
-        Submit
-      </Button>
-    </FormControl>
-
-
+      {((uniform !== 'Select Uniform') && 
+        (time !== 'Select Time')) ? showSubmitButton() : null}
 
     </center></Paper>
+
+
   )
 
 
 }
+
 
 const timeChoices = [
   '0000',
