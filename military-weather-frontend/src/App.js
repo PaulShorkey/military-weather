@@ -5,6 +5,7 @@ import ResultsView from './ResultsView';
 import StickyFooter from './Footer';
 import oneCallAPI from './APIcall/oneCallAPI.js';
 import { useState, useEffect } from 'react';
+import ptUniformLogic from './ResultsViewLogic.js';
 
 
 function App({ initialSearchData }) {
@@ -13,6 +14,8 @@ function App({ initialSearchData }) {
   useEffect(() => {
     oneCallAPI(searchObject, setOneCallAPIData);
   }, [searchObject, setOneCallAPIData])
+
+  ptUniformLogic(oneCallAPIData, '0630', '', '');
 
   //pages rendered based on the current state (home)
   return (
