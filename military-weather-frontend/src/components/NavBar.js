@@ -8,6 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
+  colorPrimary: {
+    backgroundColor: 'gray',
+  },
   root: {
     flexGrow: 1,
   },
@@ -19,12 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const style = {
+  margin: 20,
+  backgroundColor: 'gray',
+  color: 'white'
+};
+
 export default function NavBar() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={style}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />

@@ -3,14 +3,14 @@ import {
   Paper,
   InputLabel,
   MenuItem,
-  FormHelperText,
   FormControl,
-  Select,
-  Grid
+  Select, 
+  Card,
+  Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import DateTimePicker from './DateTimePicker.js';
-import SearchObject from './APIcall/SearchObject.js';
+import SearchObject from '../APIcall/SearchObject.js';
+import DatePickers from './DatePicker.js';
 
 const baseChoices = [
   'Bragg',
@@ -56,6 +56,7 @@ const styles = {
   },
 };
 
+
 function SearchField({ searchObject, setSearchObject }) {
   const [uniform, setUniform] = useState('Select Uniform')
   const [base, setBase] = useState('Select Base')
@@ -71,7 +72,7 @@ function SearchField({ searchObject, setSearchObject }) {
   const handleBaseChange = (event) => {
     setBase(event.target.value);
     const { lat, lon } = event.target.value;
-    let nextSearchObj = new SearchObject;
+    let nextSearchObj = new SearchObject();
     nextSearchObj.lat = lat;
     nextSearchObj.lon = lon;
     nextSearchObj.units = searchObject.units;
@@ -89,25 +90,6 @@ function SearchField({ searchObject, setSearchObject }) {
   return (
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select">Select Uniform</InputLabel>
-        <Select
-          labelId="select-uniform"
-          id="select"
-          value={uniform}
-          onChange={handleUniformChange}
-        >
-          {
-            uniformChoices.map((uniform) => {
-              {
-                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
-              }
-            })
-          }
-
-
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select">Select Base</InputLabel>
         <Select
           labelId="select-time"
@@ -122,7 +104,26 @@ function SearchField({ searchObject, setSearchObject }) {
           }
 
         </Select>
+      </FormControl><br/>
+
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="select">Select Uniform</InputLabel>
+        <Select
+          labelId="select-uniform"
+          id="select"
+          value={uniform}
+          onChange={handleUniformChange}
+        >
+          {
+            uniformChoices.map((uniform) => {
+                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>) 
+            })
+          }
+
+
+        </Select>
       </FormControl>
+      
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select">Select Time</InputLabel>
         <Select
@@ -139,7 +140,9 @@ function SearchField({ searchObject, setSearchObject }) {
 
         </Select>
       </FormControl>
-      <FormControl className={classes.formControl}>
+
+      {/*<FormControl className={classes.formControl}>
+        
         <InputLabel htmlFor="select">Select Day</InputLabel>
         <Select
           labelId="select-time"
@@ -149,10 +152,23 @@ function SearchField({ searchObject, setSearchObject }) {
         >
           <MenuItem value='Today' >Today</MenuItem>
           <MenuItem value='Tomorrow' >Tomorrow</MenuItem>
-
-
+          
         </Select>
+        
+        </FormControl>*/}
+
+      <FormControl className={classes.formControl}>
+        <DatePickers />
       </FormControl>
+
+    <FormControl>
+      <Button variant="contained" color="primary">
+        Submit
+      </Button>
+    </FormControl>
+      
+      
+
     </center></Paper>
   )
 
