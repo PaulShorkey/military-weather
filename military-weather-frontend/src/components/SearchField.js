@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Switch,
   Select, 
+  Card,
   Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,10 +23,10 @@ const baseChoices = [
   'Pearl Harbor-Hickam'];
 
 const baseCoords = {
-  'Bragg': { "lat": 35.14, "lon": -79.00 },
-  'Charleston': { "lat": 0, "lon": 0 },
-  'Drum': { "lat": 0, "lon": 0 },
-  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97 }
+  'Bragg': { "lat": 35.14, "lon": -79.00, "timeZone":"America/New_York" },
+  'Charleston': { "lat": 0, "lon": 0,"timeZone":"America/New_York"  },
+  'Drum': { "lat": 0, "lon": 0,"timeZone":"America/New_York"  },
+  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone":"Pacific/Honolulu" }
 }
 
 const uniformChoices = [
@@ -142,14 +143,14 @@ function SearchField({ searchObject, setSearchObject }) {
         >
           {
             uniformChoices.map((uniform) => {
-                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>) 
+                return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
             })
           }
 
 
         </Select>
       </FormControl>
-      
+
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="select">Select Time</InputLabel>
         <Select
@@ -168,7 +169,7 @@ function SearchField({ searchObject, setSearchObject }) {
       </FormControl>
 
       {/*<FormControl className={classes.formControl}>
-        
+
         <InputLabel htmlFor="select">Select Day</InputLabel>
         <Select
           labelId="select-time"
@@ -178,9 +179,9 @@ function SearchField({ searchObject, setSearchObject }) {
         >
           <MenuItem value='Today' >Today</MenuItem>
           <MenuItem value='Tomorrow' >Tomorrow</MenuItem>
-          
+
         </Select>
-        
+
         </FormControl>*/}
 
       <FormControl className={classes.formControl}>
@@ -192,8 +193,8 @@ function SearchField({ searchObject, setSearchObject }) {
         Submit
       </Button>
     </FormControl>
-      
-      
+
+
 
     </center></Paper>
   )

@@ -1,6 +1,22 @@
 import UseClock from 'use-clock';
 
-function ptUniformLogic(oneCallAPIData, inputTime, day, base) {
+function getUniformAtInputTime(hourly48HourForcast, inputTime, day, base, uniform) {
+  let temperature = tempAtTime(hourly48HourForcast, inputTime, day, base)
+  if (uniform === 'Army PT') {
+    return getPtUniform(temperature, base)
+  } else {
+    //return getOcpUniform(temperature, base)
+  }
+}
+
+/**
+ * Will return a temperature at a given time
+ * @param {*} hourlyFo48Hourrcast
+ * @param {*} inputTime
+ * @param {*} day
+ * @param {*} base
+ */
+function tempAtTime(hourly48HourForcast, inputTime, day, base) {
   let intTime = parseInt(inputTime);
   let time1 = intTime;
   let time2 = intTime;
@@ -13,19 +29,45 @@ function ptUniformLogic(oneCallAPIData, inputTime, day, base) {
   time1 /= 100;
   time2 /= 100;
 
-  const { time, onTimezone, raw } = UseClock("HH:MM");
-  const bragTime = onTimezone("America/Denver")
+  const {
+    time,
+    onTimezone,
+    raw
+  } = UseClock("HH");
+  const baseTime = onTimezone("America/New_York")
 
-  console.log(bragTime);
+  let tempAtTime1;
+  let tempAtTime2;
+  if (day === 'today') {
+    tempAtTime1 = hourly48HourForcast[time1 - baseTime].temp;
+    tempAtTime2 = hourly48HourForcast[time2 - baseTime].temp;
+  } else {
+    tempAtTime1 = hourly48HourForcast[24 - baseTime + time1].temp;
+    tempAtTime2 = hourly48HourForcast[24 - baseTime + time2].temp;
+  }
 
-
-
+  return (tempAtTime1 + tempAtTime2) / 2
 
 }
 
-// function ocpUniformLogic(){
+function getPtUniform(temperature, base) {
+  if (temperature > 48) {
+    return ['short sleeved shirt', 'shorts'];
 
-// }
+  } else if (temperature > 39 && temperature < 49) {
+    return ['long sleeved shirt', 'short sleeve underneath', 'shorts'];
+
+  } else if (temperature > 32 && temperature < 40) {
+    return ['long sleeved shirt', 'short sleeve underneath', 'shorts', 'jacket', 'hat', 'gloves'];
+
+  } else {
+    return ['long sleeved shirt', 'short sleeve underneath', 'pants', 'shorts underneath', 'jacket', 'hat', 'gloves'];
+  }
+}
+
+function getOcpUniform() {
+
+}
 
 // function heatIndexLogic(){
 
@@ -39,7 +81,7 @@ function ptUniformLogic(oneCallAPIData, inputTime, day, base) {
 
 // }
 
-export default ptUniformLogic;
+export default tempAtTime;
 
 // //////////////////////////////////////////////////////////////////////
 // Level 1, 49 degrees F and above,  short sleeved shirt and shorts

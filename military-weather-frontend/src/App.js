@@ -6,7 +6,8 @@ import StickyFooter from './components/Footer.js';
 import oneCallAPI from './APIcall/oneCallAPI.js';
 
 import { useState, useEffect } from 'react';
-import ptUniformLogic from './ResultsViewLogic.js';
+import tempAtTime from './ResultsViewLogic.js';
+import sampleResponse from './sampleResponse.js';
 
 
 function App({ initialSearchData }) {
@@ -15,9 +16,9 @@ function App({ initialSearchData }) {
   const [editBaseTemp, setBaseTemp] = useState(true);
   useEffect(() => {
     oneCallAPI(searchObject, setOneCallAPIData);
-  }, [searchObject, setOneCallAPIData])
 
-  ptUniformLogic(oneCallAPIData, '0630', '', '');
+  }, [searchObject, setOneCallAPIData])
+  tempAtTime(sampleResponse().hourly, '0600', '', '');
 
   //pages rendered based on the current state (home)
   return (
@@ -28,7 +29,7 @@ function App({ initialSearchData }) {
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
         <ResultsView />
-        
+
       </body>
       <footer>
         <StickyFooter />
@@ -39,3 +40,5 @@ function App({ initialSearchData }) {
 }
 
 export default App;
+
+
