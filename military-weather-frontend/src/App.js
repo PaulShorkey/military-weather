@@ -1,9 +1,10 @@
 import './App.css';
-import SearchField from './SearchField';
-import NavBar from './NavBar';
-import ResultsView from './ResultsView';
-import StickyFooter from './Footer';
+import SearchField from './components/SearchField.js';
+import NavBar from './components/NavBar.js';
+import ResultsView from './components/ResultsView.js';
+import StickyFooter from './components/Footer.js';
 import oneCallAPI from './APIcall/oneCallAPI.js';
+
 import { useState, useEffect } from 'react';
 import ptUniformLogic from './ResultsViewLogic.js';
 
@@ -26,6 +27,7 @@ function App({ initialSearchData }) {
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
         <ResultsView />
+        
       </body>
       <footer>
         <StickyFooter />
