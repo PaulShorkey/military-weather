@@ -18,7 +18,6 @@ function App({ initialSearchData }) {
     oneCallAPI(searchObject, setOneCallAPIData);
 
   }, [searchObject, setOneCallAPIData])
-  tempAtTime(sampleResponse().hourly, '0600', '', '');
 
   //pages rendered based on the current state (home)
   return (
@@ -28,7 +27,7 @@ function App({ initialSearchData }) {
       </header>
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
-        <ResultsView />
+        <ResultsView oneCallAPIData={sampleResponse()}/>
 
       </body>
       <footer>

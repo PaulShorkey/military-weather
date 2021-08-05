@@ -15,6 +15,9 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
+import getUniformAtInputTime from '../ResultsViewLogic.js';
+
+
 
 const styles = {
     customWidth: {
@@ -41,8 +44,10 @@ const styles = {
     color: 'white'
   };
 
-function ResultsView(){
-    return(
+function ResultsView({oneCallAPIData}){
+  console.log(getUniformAtInputTime(oneCallAPIData.hourly, '0600', '', 'Bragg', 'Army PT'))  
+  
+  return(
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <Card variant="outlined" style={style}>
       <CardContent>
