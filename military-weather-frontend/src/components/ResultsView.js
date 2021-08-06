@@ -2,13 +2,15 @@ import {
   Paper,
   Card,
   CardContent,
-  Typography
+  Typography,
+  Box,
+  Container,
+  Grid,
+  rgbToHex
 } from '@material-ui/core';
 import React from 'react';
 
-import getUniformAtInputTime from '../ResultsViewLogic.js';
-
-
+import {getUniformAtInputTime, getHeatIndexAndFlag, getWeatherCondition, getAirQuality} from '../ResultsViewLogic.js';
 
 const styles = {
   customWidth: {
@@ -25,18 +27,54 @@ const styles = {
 
 const style = {
   margin: 20,
-  backgroundColor: 'green',
+  backgroundColor: '#3448A8',
   color: 'white'
 };
 
 const style2 = {
   margin: 20,
-  backgroundColor: 'gray',
+  backgroundColor: 'Gray',
   color: 'white'
 };
 
-function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
+const style3easy = {
+  display: 'inline',
+  backgroundColor: rgbToSex(57,255,70),
+    padding: 16,
+    margin:12,
+    fontWeight: 400,
+    fontSize: 14,
+    color: 'black',
+    borderRadius:12
+};
 
+const style3medium = {
+  display: 'inline',
+  backgroundColor:rgbToSex(255,255,89),
+    padding: 16,
+    margin:12,
+    fontWeight: 400,
+    fontSize: 14,
+    color: 'black',
+    borderRadius:12
+};
+
+const style3hard = {
+  display: 'inline',
+  backgroundColor:rgbToSex(255,38,90),
+    padding: 16,
+    margin:12,
+    fontWeight: 400,
+    fontSize: 14,
+    color:'black',
+    borderRadius:12
+};
+
+function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
+  let uniformArray = getUniformAtInputTime(oneCallAPIData.hourly, searchObject);
+  let heatIndexArray = getHeatIndexAndFlag(oneCallAPIData.hourly, searchObject);
+  let weatherCondition = getWeatherCondition(oneCallAPIData.hourly, searchObject)
+  let airQuality = getAirQuality(airQualAPIData, searchObject);
   return (
     <Paper variant="outlined" elevation={0} style={styles}><center>
       <Card variant="outlined" style={style}>
@@ -46,7 +84,7 @@ function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
           </Typography>
           <br />
           <Typography variant="body2" component="p">
-            {getUniformRequirements.map((article) => {//replace with getUniformAtInputTime function
+            {uniformArray.map((article) => {//replace with getUniformAtInputTime function
               return <div>{`=> ${article} <=`}<br /></div>
             })}
           </Typography>
@@ -54,8 +92,27 @@ function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
       </Card>
       <Card variant="outlined" style={style2}>
         <CardContent>
-          Heat Index : {`${getHeatIndex()}`} <br />
-          Flag Condition : {`${getFlagCondition()}`} <br />
+          <Typography variant="h5" component="h2">
+            Flag Condition : {`${heatIndexArray[1]}`} <br />
+          </Typography>
+          Heat Index : {`${heatIndexArray[0]}`} <br />
+          <Grid container justifyContent="center">
+            <Grid style={style3easy}>
+              {heatIndexArray[2][0]} <br/>
+              {heatIndexArray[2][1]} 
+            </Grid>
+            <Grid style={style3medium}>
+              {heatIndexArray[2][2]} <br/>
+              {heatIndexArray[2][3]}
+            </Grid>
+            <Grid style={style3hard}>
+              {heatIndexArray[2][4]} <br/>
+              {heatIndexArray[2][5]}
+            </Grid>
+         </Grid>
+          {/* {heatIndexArray[2].map((flagInstruction) => {
+            return <div>{flagInstruction}</div>
+          })} */}
         </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
@@ -65,40 +122,28 @@ function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
           </Typography>
           <br />
           <Typography variant="body2" component="p">
-            {getWeatherAlerts.map((alert) => {
-              return <div>{`ALERT: ${alert}`}<br /></div>
-            })}
+            {weatherCondition.description}
+            <img src={`http://openweathermap.org/img/wn/${weatherCondition.icon}@2x.png`} alt="Weather icon" />
           </Typography>
         </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
         <CardContent>
-          Air Quality : {`${getAirQuality()}`}
+          Air Quality
+          You Probably Wont Die
+          {airQuality}
         </CardContent>
       </Card>
     </center></Paper>
   )
 }
 
-const getHeatIndex = () => {
-  return '95ºF';
+function componentToHex(c) {
+  let hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
-
-const getFlagCondition = () => {
-  return 'Black Flag';
+function rgbToSex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
-
-const getAirQuality = () => {
-  return 'Moderate';
-}
-
-const getWeatherAlerts = ['Flash flooding expected this afternoon',
-  'Thunderstorm warning'];
-
-const getUniformRequirements = ['Short Sleeve Shirt',
-  'Shorts',
-  'Apex Jacket',
-  'Apex Pants'
-];
 
 export default ResultsView;

@@ -26,20 +26,15 @@ const baseChoices = [
 
 const baseCoords = {
   'Bragg': { "lat": 35.14, "lon": -79.00, "timeZone": "America/New_York" },
-  'Charleston': { "lat": 0, "lon": 0, "timeZone": "America/New_York" },
-  'Drum': { "lat": 0, "lon": 0, "timeZone": "America/New_York" },
+  'Charleston': { "lat": 32.89, "lon": -80.07, "timeZone": "America/New_York" },
+  'Drum': { "lat": 44.05, "lon": -75.74, "timeZone": "America/New_York" },
   'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone": "Pacific/Honolulu" }
 }
 
 const uniformChoices = [
-  'Air Force OCP',
-  'Army OCP',
-  'Air Force PT',
-  'Army PT'];
-
-
-
-
+  'Army PT',
+  'Army OCP'
+  ];
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -88,7 +83,6 @@ function SearchField({ searchObject, setSearchObject }) {
     nextSearchObj.units = isFahrenheit ? 'imperial' : 'metric';
     setSearchObject(nextSearchObj);
   };
-
 
   const classes = useStyles();
 

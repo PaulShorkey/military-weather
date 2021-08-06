@@ -1,7 +1,8 @@
 import UseClock from 'use-clock';
 
-function getUniformAtInputTime(hourly48HourForcast, inputTime, day, base, uniform) {
-  let temperature = tempAtTime(hourly48HourForcast, inputTime, day, base)
+function getUniformAtInputTime(hourly48HourForcast, searchObject) {
+  let {time, day, base, uniform} = searchObject
+  let temperature = tempAtTime(hourly48HourForcast, time, day, base)
   if (uniform === 'Army PT') {
     return getPtUniform(temperature, base)
   } else if (uniform === 'Army OCP') {
@@ -78,19 +79,171 @@ function getOcpUniform(temperature, base) {
   }
 }
 
-// function heatIndexLogic(){
+function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
+  let {time, day, base, uniform, units} = searchObject
+  let tempAndFlag = [];
+  let heatIndex = feelsLikeTempAtTime(hourly48HourForcast, time, day, base)
+  let currentFlag = getFlagCondition(heatIndex, units);
+  
+  tempAndFlag.push(heatIndex);
 
-// }
+  if (currentFlag === 'black'){
+    tempAndFlag.push('Heat Catagory 5/ Black Flag')
+    tempAndFlag.push(['Easy Work/Rest(min): 50/10',
+                      'Water Intake(qt/hr): 1',
+                      'Moderate Work/Rest(min): 20/40',
+                      'Water Intake(qt/hr): 1',
+                      'Hard Work/Rest(min): 10/50',
+                      'Water Intake(qt/hr): 1'
+                    ])
+  } else if (currentFlag === 'red'){
+    tempAndFlag.push('Heat Catagory 4/ Red Flag')
+    tempAndFlag.push(['Easy Work/Rest(min): No Limit',
+                      'Water Intake(qt/hr): 3/4',
+                      'Moderate Work/Rest(min): 30/30',
+                      'Water Intake(qt/hr): 3/4',
+                      'Hard Work/Rest(min): 20/40',
+                      'Water Intake(qt/hr): 1'
+                    ])
+  } else if (currentFlag === 'yellow'){
+    tempAndFlag.push('Heat Catagory 3/ Yellow Flag')
+    tempAndFlag.push(['Easy Work/Rest(min): No Limit',
+                      'Water Intake(qt/hr): 3/4',
+                      'Moderate Work/Rest(min): 30/30',
+                      'Water Intake(qt/hr): 3/4',
+                      'Hard Work/Rest(min): 20/40',
+                      'Water Intake(qt/hr): 1'
+                    ])
+  } else if (currentFlag === 'green'){
+    tempAndFlag.push('Heat Catagory 2/ Green Flag')
+    tempAndFlag.push(['Easy Work/Rest(min): No Limit',
+                      'Water Intake(qt/hr): 1/2',
+                      'Moderate Work/Rest(min): 50/10',
+                      'Water Intake(qt/hr): 3/4',
+                      'Hard Work/Rest(min): 30/30',
+                      'Water Intake(qt/hr): 1'
+                    ])
+  } else if (currentFlag === 'white'){
+    tempAndFlag.push('Heat Catagory 1/ White Flag')
+    tempAndFlag.push(['Easy Work/Rest(min): No Limit',
+                      'Water Intake(qt/hr): 1/2',
+                      'Moderate Work/Rest(min): No Limit',
+                      'Water Intake(qt/hr): 3/4',
+                      'Hard Work/Rest(min): 40/20',
+                      'Water Intake(qt/hr): 3/4'
+                    ])
+  }
+  
 
-// function badWeatherLogic(){
+  
+  return tempAndFlag;
+}
 
-// }
+function getFlagCondition(heatIndex, units){
+  let newIndex = heatIndex;
+  if(units === 'metric'){
+    newIndex = (heatIndex * (9/5)) + 32;
+  }
 
-// function airQualityLogic(){
+  if (newIndex >= 90){
+    return 'black';
+  }
+  else if(newIndex >= 88){
+    return 'red';
+  }
+  else if(newIndex >= 85){
+    return 'yellow';
+  }
+  else if(newIndex >= 82){
+    return 'green';
+  }
 
-// }
+  return 'white';
+}
 
-export default getUniformAtInputTime;
+/**
+ * Will return a 'feel like' temperature at a given time
+ * @param {*} hourlyFo48Hourrcast
+ * @param {*} inputTime
+ * @param {*} day
+ * @param {*} base
+ */
+ function feelsLikeTempAtTime(hourly48HourForcast, inputTime, day, base) {
+  let intTime = parseInt(inputTime);
+  let time1 = intTime;
+  let time2 = intTime;
+
+  if (inputTime.substring(2) === '30') {
+    time1 -= 30;
+    time2 += 70;
+  }
+
+  time1 /= 100;
+  time2 /= 100;
+
+  const {
+    onTimezone
+  } = UseClock("HH");
+  const baseTime = onTimezone("America/New_York")
+
+  let tempAtTime1;
+  let tempAtTime2;
+  if (day === 'today') {
+    tempAtTime1 = hourly48HourForcast[time1 - baseTime].feels_like;
+    tempAtTime2 = hourly48HourForcast[time2 - baseTime].feels_like;
+  } else {
+    tempAtTime1 = hourly48HourForcast[24 - baseTime + time1].feels_like;
+    tempAtTime2 = hourly48HourForcast[24 - baseTime + time2].feels_like;
+  }
+
+  return (tempAtTime1 + tempAtTime2) / 2
+
+}
+
+function getWeatherCondition(hourly48HourForcast, searchObject) {
+  let {time, day, base, uniform} = searchObject
+  let temperature = tempAtTime(hourly48HourForcast, time, day, base)
+  let weather = weatherAtTime(hourly48HourForcast, time, day, base)
+
+  return weather;
+}
+
+/**
+ * Will return a 'feel like' temperature at a given time
+ * @param {*} hourlyFo48Hourrcast
+ * @param {*} inputTime
+ * @param {*} day
+ * @param {*} base
+ */
+ function weatherAtTime(hourly48HourForcast, inputTime, day, base) {
+  let intTime = parseInt(inputTime);
+  let time1 = intTime;
+
+  if (inputTime.substring(2) === '30') {
+    time1 -= 30;
+  }
+
+  time1 /= 100;
+
+  const {
+    onTimezone
+  } = UseClock("HH");
+  const baseTime = onTimezone("America/New_York")
+
+  let weatherAtTime1;
+  if (day === 'today') {
+    weatherAtTime1 = hourly48HourForcast[time1 - baseTime].weather;
+  } else {
+    weatherAtTime1 = hourly48HourForcast[24 - baseTime + time1].weather;
+  }
+  return weatherAtTime1[0];
+}
+
+function getAirQuality(airQualAPIData, searchObject){
+  //Logic will go here
+}
+
+export {getUniformAtInputTime, getHeatIndexAndFlag, getWeatherCondition, getAirQuality}; 
 
 // //////////////////////////////////////////////////////////////////////
 // Level 1, 49 degrees F and above,  short sleeved shirt and shorts

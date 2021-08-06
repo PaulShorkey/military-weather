@@ -10,8 +10,6 @@ import { useState, useEffect } from 'react';
 import tempAtTime from './ResultsViewLogic.js';
 import sampleResponse from './sampleResponse.js';
 
-
-
 function App() {
   const [searchObject, setSearchObject] = useState(null);
   const [oneCallAPIData, setOneCallAPIData] = useState(null);
@@ -26,8 +24,6 @@ function App() {
 
   function showResultsView() {
     if (oneCallAPIData && airQualAPIData) {
-      console.log(oneCallAPIData)
-      console.log(airQualAPIData)
       return <ResultsView oneCallAPIData={oneCallAPIData} airQualAPIData={airQualAPIData} searchObject={searchObject} />
     }
   }
