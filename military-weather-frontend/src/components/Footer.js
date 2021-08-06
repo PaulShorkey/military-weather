@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
         Galvanize Cohort 3
       </Link>
       {'.'}

@@ -10,7 +10,8 @@ import {
   Switch,
   Select,
   Card,
-  Button
+  Button,
+  Box
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchObject from '../APIcall/SearchObject.js';
@@ -44,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    marginBottom: 25,
-    marginTop: 25
+    marginBottom: 10,
+    marginTop: 10
 
   },
   selectEmpty: {
@@ -170,7 +171,7 @@ function SearchField({ searchObject, setSearchObject }) {
 
   function showSubmitButton() {
     return (
-      <FormControl>
+      <FormControl className={classes.formControl}>
         <Button variant="contained" color="primary" onClick={submitClick}>
           Submit
         </Button>
@@ -180,32 +181,35 @@ function SearchField({ searchObject, setSearchObject }) {
 
   return (
     <Paper variant="outlined" elevation={0} style={styles}><center>
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="select">Select Base</InputLabel>
-        <Select
-          labelId="select-base"
-          id="select"
-          value={base}
-          onChange={handleBaseChange}
-        >
-          {
-            baseChoices.map((base) => {
-              return (<MenuItem value={base} >{base}</MenuItem>)
-            })
-          }
+     
+    
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="select">Select Base</InputLabel>
+          <Select
+            labelId="select-base"
+            id="select"
+            value={base}
+            onChange={handleBaseChange}
+          >
+            {
+              baseChoices.map((base) => {
+                return (<MenuItem value={base} >{base}</MenuItem>)
+              })
+            }
 
-        </Select>
-      </FormControl>
-
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Sell See Us/Fair In Height</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={<Switch checked={isFahrenheit} onChange={handleToggle} name="isFahrenheit" />}
-            label=""
-          />
-        </FormGroup>
-      </FormControl>
+          </Select>
+        </FormControl>
+      
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">C° / F°</FormLabel>
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch checked={isFahrenheit} onChange={handleToggle} name="isFahrenheit" />}
+              label=""
+            />
+          </FormGroup>
+        </FormControl>
+      
 
       {(base === 'Select Base') ? null : showUniformTimeDate()}
 

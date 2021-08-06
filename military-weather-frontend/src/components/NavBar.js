@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(49),
+    marginRight: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -38,7 +38,7 @@ export default function NavBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" position="center">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title} >
+          <Typography variant="h6" className={classes.title} justifyContent="center">
             Military Weather App
           </Typography>
           <Button color="inherit">Login</Button>
