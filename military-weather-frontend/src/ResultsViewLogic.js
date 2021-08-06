@@ -4,8 +4,8 @@ function getUniformAtInputTime(hourly48HourForcast, inputTime, day, base, unifor
   let temperature = tempAtTime(hourly48HourForcast, inputTime, day, base)
   if (uniform === 'Army PT') {
     return getPtUniform(temperature, base)
-  } else {
-    //return getOcpUniform(temperature, base)
+  } else if (uniform === 'Army OCP') {
+    return getOcpUniform(temperature, base)
   }
 }
 
@@ -30,9 +30,7 @@ function tempAtTime(hourly48HourForcast, inputTime, day, base) {
   time2 /= 100;
 
   const {
-    time,
-    onTimezone,
-    raw
+    onTimezone
   } = UseClock("HH");
   const baseTime = onTimezone("America/New_York")
 
@@ -54,10 +52,10 @@ function getPtUniform(temperature, base) {
   if (temperature > 48) {
     return ['short sleeved shirt', 'shorts'];
 
-  } else if (temperature > 39 && temperature < 49) {
+  } else if (temperature > 39) {
     return ['long sleeved shirt', 'short sleeve underneath', 'shorts'];
 
-  } else if (temperature > 32 && temperature < 40) {
+  } else if (temperature > 32) {
     return ['long sleeved shirt', 'short sleeve underneath', 'shorts', 'jacket', 'hat', 'gloves'];
 
   } else {
@@ -65,8 +63,19 @@ function getPtUniform(temperature, base) {
   }
 }
 
-function getOcpUniform() {
+function getOcpUniform(temperature, base) {
+  if (temperature > 45) {
+    return ['Mid-Weight Cold Weather Shirt', 'OCP Pant', 'Soft Shell Trousers'];
 
+  } else if (temperature > 30) {
+    return ['Mid-Weight Cold Weather Shirt', 'Soft Shell Jacket', 'Extreme Cold Weather Parka'];
+
+  } else if (temperature > 0) {
+    return ['Mid-Weight Cold Weather Drawers', 'Soft Shell Jacket', 'Extreme Cold Weather Parka', 'Extreme Cold Weather Trousers'];
+
+  } else {
+    return ['Mid Weight Cold Weather Shirt', 'Mid-Weight Cold Weather Drawers', 'Soft Shell Jacket', 'Extreme Cold Weather Parka', 'Extreme Cold Weather Trousers'];
+  }
 }
 
 // function heatIndexLogic(){

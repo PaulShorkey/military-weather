@@ -4,25 +4,33 @@ import NavBar from './components/NavBar.js';
 import ResultsView from './components/ResultsView.js';
 import StickyFooter from './components/Footer.js';
 import oneCallAPI from './APIcall/oneCallAPI.js';
+import airQualAPI from './APIcall/airQualAPI';
 
 import { useState, useEffect } from 'react';
 import tempAtTime from './ResultsViewLogic.js';
 import sampleResponse from './sampleResponse.js';
 
 
-function App({ initialSearchData }) {
-  const [searchObject, setSearchObject] = useState(initialSearchData);
-  const [oneCallAPIData, setOneCallAPIData] = useState({});
+
+function App() {
+  const [searchObject, setSearchObject] = useState(null);
+  const [oneCallAPIData, setOneCallAPIData] = useState(null);
+  const [airQualAPIData, setAirQualAPIData] = useState(null);
   const [editBaseTemp, setBaseTemp] = useState(true);
   useEffect(() => {
-    oneCallAPI(searchObject, setOneCallAPIData);
+    if (searchObject !== null) {
+      oneCallAPI(searchObject, setOneCallAPIData);
+      airQualAPI(searchObject, setAirQualAPIData);
+    }
+  }, [searchObject])
 
-  }, [searchObject, setOneCallAPIData])
-
-  // function showResultsView(){
-  //   return (<ResultsView oneCallAPIData={sampleResponse()}/>)
-  // }
-  // let base = 'Select Base'
+  function showResultsView() {
+    if (oneCallAPIData && airQualAPIData) {
+      console.log(oneCallAPIData)
+      console.log(airQualAPIData)
+      return <ResultsView oneCallAPIData={oneCallAPIData} airQualAPIData={airQualAPIData} searchObject={searchObject} />
+    }
+  }
 
   //pages rendered based on the current state (home)
   return (
@@ -32,8 +40,7 @@ function App({ initialSearchData }) {
       </header>
       <body>
         <SearchField searchObject={searchObject} setSearchObject={setSearchObject} />
-        <ResultsView oneCallAPIData={sampleResponse()}/>
-        
+        {showResultsView()}
 
       </body>
       <footer>

@@ -72,15 +72,27 @@ function SearchField({ searchObject, setSearchObject }) {
   const [uniform, setUniform] = useState('Select Uniform')
   const [base, setBase] = useState('Select Base')
   const [time, setTime] = useState('Select Time')
+  const [isFahrenheit, setIsFahrenheit] = useState(true);
   const [day, setDay] = useState('Today')
-  const [FCToggle, setFCToggle] = React.useState({
-    FC: true
-  });
+
+  const submitClick = (event) => {
+    let nextSearchObj = new SearchObject();
+    nextSearchObj.lat = baseCoords[base].lat;
+    nextSearchObj.lon = baseCoords[base].lon;
+    nextSearchObj.timeZone = baseCoords[base].timeZone;
+    nextSearchObj.uniform = uniform;
+    nextSearchObj.base = baseCoords[base].base;
+    nextSearchObj.time = time;
+    nextSearchObj.day = day;
+    nextSearchObj.units = isFahrenheit ? 'imperial' : 'metric';
+    setSearchObject(nextSearchObj);
+  };
+
 
   const classes = useStyles();
 
   const handleToggle = (event) => {
-    setFCToggle({ ...FCToggle, [event.target.name]: event.target.checked });
+    setIsFahrenheit(!isFahrenheit);
   };
 
   const handleUniformChange = (event) => {
@@ -89,12 +101,6 @@ function SearchField({ searchObject, setSearchObject }) {
 
   const handleBaseChange = (event) => {
     setBase(event.target.value);
-    const { lat, lon } = event.target.value;
-    let nextSearchObj = new SearchObject();
-    nextSearchObj.lat = lat;
-    nextSearchObj.lon = lon;
-    nextSearchObj.units = searchObject.units;
-    setSearchObject(nextSearchObj);
   };
 
   const handleTimeChange = (event) => {
@@ -121,11 +127,11 @@ function SearchField({ searchObject, setSearchObject }) {
                 return (<MenuItem value={`${uniform}`} >{uniform}</MenuItem>)
               })
             }
-  
-  
+
+
           </Select>
         </FormControl>
-  
+
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="select">Select Time</InputLabel>
           <Select
@@ -139,10 +145,10 @@ function SearchField({ searchObject, setSearchObject }) {
                 return (<MenuItem value={`${time}`} >{time}</MenuItem>)
               })
             }
-  
+
           </Select>
         </FormControl>
-  
+
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="select">Select Day</InputLabel>
           <Select
@@ -151,24 +157,24 @@ function SearchField({ searchObject, setSearchObject }) {
             value={day}
             onChange={handleDayChange}
           >
-             <MenuItem value='Today'>Today</MenuItem>
-             <MenuItem value='Tomorrow'>Tomorrow</MenuItem>
-             
+            <MenuItem value='Today'>Today</MenuItem>
+            <MenuItem value='Tomorrow'>Tomorrow</MenuItem>
+
           </Select>
         </FormControl>
-        
-  
+
+
       </div>
     );
   }// end of showUniformTimeDate()
 
-  function showSubmitButton(){
-    return(
+  function showSubmitButton() {
+    return (
       <FormControl>
-          <Button variant="contained" color="primary" >
-            Submit
-          </Button>
-        </FormControl>
+        <Button variant="contained" color="primary" onClick={submitClick}>
+          Submit
+        </Button>
+      </FormControl>
     )
   };
 
@@ -184,7 +190,7 @@ function SearchField({ searchObject, setSearchObject }) {
         >
           {
             baseChoices.map((base) => {
-              return (<MenuItem value={baseCoords[base]} >{base}</MenuItem>)
+              return (<MenuItem value={base} >{base}</MenuItem>)
             })
           }
 
@@ -192,10 +198,10 @@ function SearchField({ searchObject, setSearchObject }) {
       </FormControl>
 
       <FormControl component="fieldset">
-        <FormLabel component="legend">F° / C°</FormLabel>
+        <FormLabel component="legend">Sell See Us/Fair In Height</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Switch onChange={handleToggle} name="FC" />}
+            control={<Switch checked={isFahrenheit} onChange={handleToggle} name="isFahrenheit" />}
             label=""
           />
         </FormGroup>
@@ -203,7 +209,7 @@ function SearchField({ searchObject, setSearchObject }) {
 
       {(base === 'Select Base') ? null : showUniformTimeDate()}
 
-      {((uniform !== 'Select Uniform') && 
+      {((uniform !== 'Select Uniform') &&
         (time !== 'Select Time')) ? showSubmitButton() : null}
 
     </center></Paper>

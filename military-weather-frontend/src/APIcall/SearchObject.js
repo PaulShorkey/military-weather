@@ -1,12 +1,14 @@
 
 class SearchObject {
   constructor() {
-    this.lat = 20.0;
-    this.lon = 155.0;
-    this.units = 'imperial';
-    this.base = 'Bragg';
-    this.time = '0630';
-    this.day = 'today';
+    this.lat = 0;
+    this.lon = 0;
+    this.units = '';
+    this.base = '';
+    this.uniform = '';
+    this.time = '';
+    this.timeZone = '';
+    this.day = '';
   }
 }
 export default SearchObject;
