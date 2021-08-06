@@ -65,7 +65,10 @@ function getPtUniform(temperature, base) {
 }
 
 function getOcpUniform(temperature, base) {
-  if (temperature > 45) {
+  
+  if (temperature > 60){
+     return['OCPs']
+  } else if (temperature > 45) {
     return ['Mid-Weight Cold Weather Shirt', 'OCP Pant', 'Soft Shell Trousers'];
 
   } else if (temperature > 30) {
@@ -240,8 +243,28 @@ function getWeatherCondition(hourly48HourForcast, searchObject) {
 }
 
 function getAirQuality(airQualAPIData, searchObject){
-  //Logic will go here
-}
+  let aqi = airQualAPIData.list[0].main.aqi;
+//Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.
+  if (aqi === 1){
+       return('Good')
+  } else if (aqi === 2){
+       return('Fair')
+  } else if (aqi === 3){
+       return('Moderate, Minimize Time Outside')
+  } else if (aqi === 4){
+       return('Poor, Work Indoors')
+  } else if (aqi === 5){
+       return('Very Poor, Work Indoors')
+  } 
+} //YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
+//YEAAAAAA BOIIIIIIIIIIIIIIIIIIIII
 
 export {getUniformAtInputTime, getHeatIndexAndFlag, getWeatherCondition, getAirQuality}; 
 

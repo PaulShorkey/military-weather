@@ -122,15 +122,16 @@ function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
           </Typography>
           <br />
           <Typography variant="body2" component="p">
-            {weatherCondition.description}
             <img src={`http://openweathermap.org/img/wn/${weatherCondition.icon}@2x.png`} alt="Weather icon" />
+            <center>{weatherCondition.description}</center>
           </Typography>
         </CardContent>
       </Card>
       <Card variant="outlined" style={style2}>
         <CardContent>
-          Air Quality
-          You Probably Wont Die
+        <Typography variant="h5" component="h2">
+            Air Quality
+        </Typography>
           {airQuality}
         </CardContent>
       </Card>

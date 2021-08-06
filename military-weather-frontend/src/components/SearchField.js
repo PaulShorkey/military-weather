@@ -22,13 +22,24 @@ const baseChoices = [
   'Bragg',
   'Charleston',
   'Drum',
-  'Pearl Harbor-Hickam'];
+  'Pearl Harbor-Hickam',
+  'North Pole',
+  'Death Valley',
+  'Salt Lake City',
+  'Beijing',
+  'Dubai'
+];
 
 const baseCoords = {
   'Bragg': { "lat": 35.14, "lon": -79.00, "timeZone": "America/New_York" },
   'Charleston': { "lat": 32.89, "lon": -80.07, "timeZone": "America/New_York" },
   'Drum': { "lat": 44.05, "lon": -75.74, "timeZone": "America/New_York" },
-  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone": "Pacific/Honolulu" }
+  'Pearl Harbor-Hickam': { "lat": 21.33, "lon": -157.97, "timeZone": "Pacific/Honolulu" },
+  'North Pole': { "lat": 90.00, "lon": -135.00, "timeZone": "America/Anchorage" },
+  'Death Valley': { "lat": 36.53, "lon": -116.93, "timeZone": "America/Los_Angeles" },
+  'Salt Lake City': { "lat": 40.76, "lon": -111.89, "timeZone": "America/Chicago" },
+  'Beijing' :{ "lat": 39.9, "lon": 116.40, "timeZone": "Asia/Shanghai" },
+  'Dubai' :{ "lat": 25.20, "lon": 55.27, "timeZone": "Asia/Dubai" }
 }
 
 const uniformChoices = [
@@ -69,7 +80,7 @@ function SearchField({ searchObject, setSearchObject }) {
   const [base, setBase] = useState('Select Base')
   const [time, setTime] = useState('Select Time')
   const [isFahrenheit, setIsFahrenheit] = useState(true);
-  const [day, setDay] = useState('Today')
+  const [day, setDay] = useState('Select Day')
 
   const submitClick = (event) => {
     let nextSearchObj = new SearchObject();
