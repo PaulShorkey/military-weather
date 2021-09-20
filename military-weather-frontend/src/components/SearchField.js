@@ -205,7 +205,7 @@ function SearchField({ searchObject, setSearchObject }) {
           </Select>
         </FormControl>
       
-        <FormControl component="fieldset" className={classes.formControl}>
+        {/* <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">C° / F°</FormLabel>
           <FormGroup>
             <FormControlLabel
@@ -213,7 +213,7 @@ function SearchField({ searchObject, setSearchObject }) {
               label=""
             />
           </FormGroup>
-        </FormControl>
+        </FormControl> */}
       
 
       {(base === 'Select Base') ? null : showUniformTimeDate()}

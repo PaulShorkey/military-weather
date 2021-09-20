@@ -9,7 +9,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
       <Link color="inherit" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-        Galvanize Cohort 3
+        Click here for secret to happiness
       </Link>
       {'.'}
       </Typography>
@@ -42,7 +42,7 @@ export default function StickyFooter() {
       <CssBaseline />
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Typography variant="body1">Brought to you by the Family Breakout Room</Typography>
+          <Typography variant="body1">Project Ridgeway</Typography>
           <Copyright />
         </Container>
       </footer>

@@ -35,13 +35,13 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar position="static" style={style}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" position="center">
+          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" position="center">
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" className={classes.title} justifyContent="center">
-            Military Weather App
+            PT Uniform
           </Typography>
-          <Button color="inherit">Login</Button>
+          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
     </div>
