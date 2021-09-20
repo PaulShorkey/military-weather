@@ -10,7 +10,7 @@ function airQualAPI(searchObject, setAirQualAPIData) {
     //exclude - exclude parts of the call, time wise.
     //exclude options: current, minutely, hourly, daily, alerts
   
-    fetch(`http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`)
       .then(response => response.json())
       .then(data => setAirQualAPIData(data));
   }
