@@ -91,7 +91,7 @@ function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
   tempAndFlag.push(heatIndex);
 
   if (currentFlag === 'black'){
-    tempAndFlag.push('Heat Catagory 5/ Black Flag')
+    tempAndFlag.push('Heat Catagory 5')
     tempAndFlag.push(['Easy Work/Rest(min): 50/10',
                       'Water Intake(qt/hr): 1',
                       'Moderate Work/Rest(min): 20/40',
@@ -100,7 +100,7 @@ function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
                       'Water Intake(qt/hr): 1'
                     ])
   } else if (currentFlag === 'red'){
-    tempAndFlag.push('Heat Catagory 4/ Red Flag')
+    tempAndFlag.push('Heat Catagory 4')
     tempAndFlag.push(['Easy Work/Rest(min): No Limit',
                       'Water Intake(qt/hr): 3/4',
                       'Moderate Work/Rest(min): 30/30',
@@ -109,7 +109,7 @@ function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
                       'Water Intake(qt/hr): 1'
                     ])
   } else if (currentFlag === 'yellow'){
-    tempAndFlag.push('Heat Catagory 3/ Yellow Flag')
+    tempAndFlag.push('Heat Catagory 3')
     tempAndFlag.push(['Easy Work/Rest(min): No Limit',
                       'Water Intake(qt/hr): 3/4',
                       'Moderate Work/Rest(min): 30/30',
@@ -118,7 +118,7 @@ function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
                       'Water Intake(qt/hr): 1'
                     ])
   } else if (currentFlag === 'green'){
-    tempAndFlag.push('Heat Catagory 2/ Green Flag')
+    tempAndFlag.push('Heat Catagory 2')
     tempAndFlag.push(['Easy Work/Rest(min): No Limit',
                       'Water Intake(qt/hr): 1/2',
                       'Moderate Work/Rest(min): 50/10',
@@ -127,7 +127,7 @@ function getHeatIndexAndFlag(hourly48HourForcast, searchObject) {
                       'Water Intake(qt/hr): 1'
                     ])
   } else if (currentFlag === 'white'){
-    tempAndFlag.push('Heat Catagory 1/ White Flag')
+    tempAndFlag.push('Heat Catagory 1')
     tempAndFlag.push(['Easy Work/Rest(min): No Limit',
                       'Water Intake(qt/hr): 1/2',
                       'Moderate Work/Rest(min): No Limit',

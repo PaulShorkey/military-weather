@@ -93,9 +93,9 @@ function ResultsView({ oneCallAPIData, airQualAPIData, searchObject }) {
       <Card variant="outlined" style={style2}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Flag Condition : {`${heatIndexArray[1]}`} <br />
+            {`${heatIndexArray[1]}`} <br />
           </Typography>
-          Heat Index : {`${heatIndexArray[0]}`} <br />
+          Temperature at time: {`${heatIndexArray[0]}`} <br />
           <Grid container justifyContent="center">
             <Grid style={style3easy}>
               {heatIndexArray[2][0]} <br/>

@@ -10,8 +10,7 @@ import {
   Switch,
   Select,
   Card,
-  Button,
-  Box
+  Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchObject from '../APIcall/SearchObject.js';
@@ -76,11 +75,11 @@ const styles = {
 function SearchField({ searchObject, setSearchObject }) {
   const [flag, setFlag] = useState(false)
 
-  const [uniform, setUniform] = useState('Select Uniform')
-  const [base, setBase] = useState('Select Base')
-  const [time, setTime] = useState('Select Time')
+  const [uniform, setUniform] = useState('Army PT')
+  const [base, setBase] = useState('Bragg')
+  const [time, setTime] = useState('0630')
   const [isFahrenheit, setIsFahrenheit] = useState(true);
-  const [day, setDay] = useState('Select Day')
+  const [day, setDay] = useState('Tomorrow')
 
   const submitClick = (event) => {
     let nextSearchObj = new SearchObject();
